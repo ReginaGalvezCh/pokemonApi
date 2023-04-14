@@ -14,6 +14,19 @@ const fetchPokemons = async () => {
 
     return pokemons;
 };
+const createPokemonCard = (pokemon) => {
+    return `
+        <div class="col-md-4 col-sm-6 mb-4">
+            <div class="card">
+                <img src="${pokemon.sprites.front_default}" class="card-img-top" alt="${pokemon.name}">
+                <div class="card-body">
+                    <h5 class="card-title">${pokemon.name.toUpperCase()}</h5>
+                    <p class="card-text">ID: ${pokemon.id}</p>
+                </div>
+            </div>
+        </div>`;
+};
+
 const displayPokemons = async () => {
     const pokemons = await fetchPokemons();
     const gallery = document.getElementById("pokemon-gallery");
