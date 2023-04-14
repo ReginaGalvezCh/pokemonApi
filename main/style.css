@@ -1,18 +1,44 @@
+/* Apply the Poppins font to the body */
 body {
-    background-color: #f8f9fa;
+    font-family: 'Poppins', sans-serif;
 }
 
+/* Add some Pokémon franchise colors */
+.pokemon-color-primary {
+    background-color: #FFCB05;
+}
+
+.pokemon-color-secondary {
+    background-color: #3D7DCA;
+}
+
+/* Change the card title and text styles */
+.card-title {
+    font-weight: 600;
+    color: #3D7DCA;
+}
+
+.card-text {
+    font-weight: 500;
+    color: #FFCB05;
+}
+
+/* Style the card background and border */
 .card {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    border: 1px solid #3D7DCA;
+    border-radius: 10px;
+    overflow: hidden;
     transition: all 0.3s ease;
 }
 
 .card:hover {
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transform: translateY(-5px);
 }
 
-.card-img-top {
-    height: 200px;
-    object-fit: cover;
+/* Hide the cards initially */
+[data-row-id] {
+    visibility: hidden;
 }
+

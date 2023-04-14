@@ -4,7 +4,7 @@ const getPokemonData = async (id) => {
     return data;
 };
 
-const fetchPokemons = async () => {
+const fetchAllPokemons = async () => {
     const pokemons = [];
 
     for (let i = 1; i <= 150; i++) {
@@ -14,6 +14,7 @@ const fetchPokemons = async () => {
 
     return pokemons;
 };
+
 const createPokemonCard = (pokemon) => {
     return `
         <div class="col-md-4 col-sm-6 mb-4">
@@ -28,13 +29,31 @@ const createPokemonCard = (pokemon) => {
 };
 
 const displayPokemons = async () => {
-    const pokemons = await fetchPokemons();
     const gallery = document.getElementById("pokemon-gallery");
-    
-    pokemons.forEach(pokemon => {
-        const pokemonCard = createPokemonCard(pokemon);
-        gallery.innerHTML += pokemonCard;
-    });
+    const pokemons = await fetchAllPokemons();
+    let displayedCount = 0;
+    const batchSize = 50;
+
+    const displayBatch = () => {
+        const batch = pokemons.slice(displayedCount, displayedCount + batchSize);
+        const pokemonCards = batch.map((pokemon) => createPokemonCard(pokemon)).join('');
+        gallery.innerHTML += pokemonCards;
+        displayedCount += batchSize;
+        if (displayedCount < pokemons.length) {
+            gallery.innerHTML += loadMorePlaceholder;
+            const button = document.querySelector('.load-more-placeholder button');
+            button.addEventListener('click', () => {
+                gallery.removeChild(button.parentElement);
+                displayBatch();
+            });
+        }
+    };
+
+    const loadMorePlaceholder = `
+        <div class="col-12 mb-4 text-center load-more-placeholder">
+            <button class="btn btn-primary">Load more</button>
+        </div>`;
+    displayBatch();
 };
 
 // Call the displayPokemons function to display the Pokémon cards
